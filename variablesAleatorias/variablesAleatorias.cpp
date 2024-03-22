@@ -1,9 +1,7 @@
 #include "variablesAleatorias.h"
-
 /*---------------------- VARIABLES ALEATORIAS --------------------------*/
-int variablesAleatorias()
+void variablesAleatorias()
 {
-    cout << "prueba " << endl;
     int tam;
     int opc;
     float mediaF, varianzaF, desviacionEstandarF;
@@ -39,9 +37,6 @@ int variablesAleatorias()
     cout << "\tMedia: " << mediaF << endl;
     cout << "\tVarianza: " << varianzaF << endl;
     cout << "\tDesviación estándar: " << desviacionEstandarF << endl;
-
-    
-    return 0;
 }
 
 float media(int tam, int *x, float*fx)
@@ -82,4 +77,62 @@ float desviacionEstandar(float varianza)
         (varianza)^(1/2)
     */
     return sqrt(varianza);
+}
+
+/* -------------------------------- */
+void probabilidadBinomial()
+{
+    int n, x;
+    float pi, varianza;
+    cout << "\nIngrese los siguientes datos: " << endl;
+    cout << "\tn: ";
+    cin >> n;
+    cout << "\tpi: ";
+    cin >> pi;
+    cout << "\tx: ";
+    cin >> x;
+
+    varianza = varianzaDB(n, pi);
+
+    cout << "\n-------- RESULTADOS --------" << endl;
+    cout << "\tProbabilidad binomial: " << formulaPB(n, x, pi) << endl;
+    cout << "\tMedia: " << mediaDB(n, pi) << endl;
+    cout << "\tVarianza: " << varianza << endl;
+    cout << "\tDesviación estándar: " << desviacionDB(varianza) << endl;
+}
+
+int factorial(int n)
+{
+    long long int fact = 1;
+    if (n == 1) {
+        return 1;
+    }
+    for (int i = 1; i < n + 1; i++) {
+        fact *= i;
+    }
+    return fact;
+}
+
+float combinatoria(int n, int x)
+{
+    return factorial(n)/(factorial(n - x) * factorial(x));
+}
+
+// 
+float formulaPB(int n, int x, float pi)
+{
+    float probabilidad = combinatoria(n, x) * pow(pi, x) * pow((1 - pi), (n - x));
+    return probabilidad * 100;
+}
+
+float mediaDB(int n, float pi) {
+    return n * pi;
+}
+
+float varianzaDB(int n, float pi) {
+    return (n * pi) * (1 - pi);
+}
+
+float desviacionDB(float v) {
+    return sqrt(v);
 }
